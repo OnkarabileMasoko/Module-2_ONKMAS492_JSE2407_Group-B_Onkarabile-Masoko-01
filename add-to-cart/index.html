@@ -80,6 +80,19 @@
          </div>
 
 
+         <div :class="{'hidden': !navbarOpen, 'flex': navbarOpen}" class="w-full md:flex md:items-center md:w-auto">
+            <ul class="flex flex-col md:flex-row md:space-x-8">
+                <!-- Category Filter Dropdown -->
+                <li>
+                    <select @change="filterByCategory($event)" class="p-2 border rounded">
+                        <option value="">All Categories</option>
+                        <template x-for="category in categories" :key="category">
+                            <option :value="category" x-text="category"></option>
+                        </template>
+                    </select>
+                </li>
+            </ul>
+        </div>
 
 
     </main>
