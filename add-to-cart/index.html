@@ -66,6 +66,18 @@
         <div class="loader"></div>
     </div>
 
+    <div x-show="!loading">
+    </div>
+          <div class="flex justify-between mb-4">
+              <select @change="sortProducts($event)" class="p-2 border rounded">
+                  <option value="">Sort by</option>
+                  <option value="lowest">Price: Low to High</option>
+                  <option value="highest">Price: High to Low</option>
+              </select>
+              <button @click="resetFilters" class="p-2 bg-blue-500 text-white rounded">Reset Filters</button>
+                 <div class="mb-4">
+              <input type="text" placeholder="Search products..." class="w-full p-2 border rounded" x-model="searchTerm" @input="handleSearch">
+         </div>
 
 
 
