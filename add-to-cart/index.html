@@ -61,64 +61,64 @@
         </nav>
     </header>
     <main class="max-w-screen-xl mx-auto p-4" x-data="productData" x-init="fetchData">
-    <!-- Loading Spinner -->
-    <div x-show="loading" class="flex justify-center items-center h-screen">
-        <div class="loader"></div>
-    </div>
-
-    <div x-show="!loading">
-    </div>
-          <div class="flex justify-between mb-4">
-              <select @change="sortProducts($event)" class="p-2 border rounded">
-                  <option value="">Sort by</option>
-                  <option value="lowest">Price: Low to High</option>
-                  <option value="highest">Price: High to Low</option>
-              </select>
-              <button @click="resetFilters" class="p-2 bg-blue-500 text-white rounded">Reset Filters</button>
-                 <div class="mb-4">
-              <input type="text" placeholder="Search products..." class="w-full p-2 border rounded" x-model="searchTerm" @input="handleSearch">
-         </div>
-
-
-         <div :class="{'hidden': !navbarOpen, 'flex': navbarOpen}" class="w-full md:flex md:items-center md:w-auto">
-            <ul class="flex flex-col md:flex-row md:space-x-8">
-                <!-- Category Filter Dropdown -->
-                <li>
-                    <select @change="filterByCategory($event)" class="p-2 border rounded">
-                        <option value="">All Categories</option>
-                        <template x-for="category in categories" :key="category">
-                            <option :value="category" x-text="category"></option>
-                        </template>
-                    </select>
-                </li>
-            </ul>
+        <!-- Loading Spinner -->
+        <div x-show="loading" class="flex justify-center items-center h-screen">
+            <div class="loader"></div>
         </div>
- 
-        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-            <template x-for="product in filteredProducts" :key="product.id">
-                <div class="bg-white p-4 rounded shadow hover:shadow-lg cursor-pointer" @click="openModal(product.id)">
-                    <img :src="product.image" alt="" class="w-full h-48 object-contain rounded mb-2">
-                    <h2 class="text-lg font-semibold" x-text="product.title"></h2>
-                    <p class="text-gray-600" x-text="`$${product.price}`"></p>
-                    <p class="text-gray-500 text-sm" x-text="product.category"></p>
-                </div>
-            </template>
-        </div>
-        <div x-show="modalOpen" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center" @click.away="closeModal">
-            <div class="bg-white p-4 rounded shadow-lg w-11/12 md:w-1/2" @click.stop>
-                <button class="text-gray-500 float-right" @click="closeModal">X</button>
-                <img :src="selectedProduct.image" alt="" class="w-full h-64 object-contain rounded mb-4">
-                <h2 class="text-2xl font-bold" x-text="selectedProduct.title"></h2>
-                <p class="text-gray-600 mt-2" x-text="`$${selectedProduct.price}`"></p>
-                <p class="text-gray-500 mt-2" x-text="selectedProduct.category"></p>
-                <p class="text-gray-700 mt-4" x-text="selectedProduct.description"></p>
-                <div class="mt-4">
-                    <p class="text-gray-600" x-text="`Rating: ${selectedProduct.rating.rate}`"></p>
-                    <p class="text-gray-600" x-text="`Reviews: ${selectedProduct.rating.count}`"></p>
+
+        <div x-show="!loading">
+            <div class="mb-4">
+                <input type="text" placeholder="Search products..." class="w-full p-2 border rounded" x-model="searchTerm" @input="handleSearch">
+            </div>
+            <div class="flex justify-between mb-4">
+                <select @change="sortProducts($event)" class="p-2 border rounded">
+                    <option value="">Sort by</option>
+                    <option value="lowest">Price: Low to High</option>
+                    <option value="highest">Price: High to Low</option>
+                </select>
+                <button @click="resetFilters" class="p-2 bg-blue-500 text-white rounded">Reset Filters</button>
+            </div>
+
+            <div :class="{'hidden': !navbarOpen, 'flex': navbarOpen}" class="w-full md:flex md:items-center md:w-auto">
+                <ul class="flex flex-col md:flex-row md:space-x-8">
+                    <!-- Category Filter Dropdown -->
+                    <li>
+                        <select @change="filterByCategory($event)" class="p-2 border rounded">
+                            <option value="">All Categories</option>
+                            <template x-for="category in categories" :key="category">
+                                <option :value="category" x-text="category"></option>
+                            </template>
+                        </select>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                <template x-for="product in filteredProducts" :key="product.id">
+                    <div class="bg-white p-4 rounded shadow hover:shadow-lg cursor-pointer" @click="openModal(product.id)">
+                        <img :src="product.image" alt="" class="w-full h-48 object-contain rounded mb-2">
+                        <h2 class="text-lg font-semibold" x-text="product.title"></h2>
+                        <p class="text-gray-600" x-text="`$${product.price}`"></p>
+                        <p class="text-gray-500 text-sm" x-text="product.category"></p>
+                    </div>
+                </template>
+            </div>
+
+            <div x-show="modalOpen" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center" @click.away="closeModal">
+                <div class="bg-white p-4 rounded shadow-lg w-11/12 md:w-1/2" @click.stop>
+                    <button class="text-gray-500 float-right" @click="closeModal">X</button>
+                    <img :src="selectedProduct.image" alt="" class="w-full h-64 object-contain rounded mb-4">
+                    <h2 class="text-2xl font-bold" x-text="selectedProduct.title"></h2>
+                    <p class="text-gray-600 mt-2" x-text="`$${selectedProduct.price}`"></p>
+                    <p class="text-gray-500 mt-2" x-text="selectedProduct.category"></p>
+                    <p class="text-gray-700 mt-4" x-text="selectedProduct.description"></p>
+                    <div class="mt-4">
+                        <p class="text-gray-600" x-text="`Rating: ${selectedProduct.rating.rate}`"></p>
+                        <p class="text-gray-600" x-text="`Reviews: ${selectedProduct.rating.count}`"></p>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
     </main>
 
     <script>
@@ -131,19 +131,93 @@
             }
         }
 
+        function productData() {
+            return {
+                products: [],
+                filteredProducts: [],
+                categories: [],
+                searchTerm: '',
+                selectedProduct: {},
+                modalOpen: false,
+                loading: true,
+                currentCategory: '',
+                currentSort: '',
+                
+                fetchData() {
+                    this.loading = true;
+                    Promise.all([
+                        fetch('https://fakestoreapi.com/products/categories')
+                            .then(response => response.json())
+                            .then(data => {
+                                this.categories = data;
+                            }),
+                        fetch('https://fakestoreapi.com/products')
+                            .then(response => response.json())
+                            .then(data => {
+                                this.products = data;
+                                this.filteredProducts = data;
+                                this.loading = false;
+                            })
+                    ]).catch(error => console.error('Error:', error));
+                },
 
+                handleSearch() {
+                    this.filteredProducts = this.products.filter(product => 
+                        product.title.toLowerCase().includes(this.searchTerm.toLowerCase())
+                    );
+                    this.applyFilters();
+                },
 
+                openModal(productId) {
+                    this.loading = true;
+                    fetch(`https://fakestoreapi.com/products/${productId}`)
+                        .then(response => response.json())
+                        .then(data => {
+                            this.selectedProduct = data;
+                            this.modalOpen = true;
+                            this.loading = false;
+                        })
+                        .catch(error => console.error('Error:', error));
+                },
 
+                closeModal() {
+                    this.modalOpen = false;
+                    this.selectedProduct = {};
+                },
 
+                filterByCategory(event) {
+                    this.currentCategory = event.target.value;
+                    this.applyFilters();
+                },
 
+                sortProducts(event) {
+                    this.currentSort = event.target.value;
+                    this.applyFilters();
+                },
 
+                applyFilters() {
+                    let filtered = this.products.filter(product => 
+                        (this.currentCategory === '' || product.category === this.currentCategory) &&
+                        product.title.toLowerCase().includes(this.searchTerm.toLowerCase())
+                    );
+                    
+                    if (this.currentSort === 'lowest') {
+                        filtered.sort((a, b) => a.price - b.price);
+                    } else if (this.currentSort === 'highest') {
+                        filtered.sort((a, b) => b.price - a.price);
+                    }
 
+                    this.filteredProducts = filtered;
+                },
 
+                resetFilters() {
+                    this.currentCategory = '';
+                    this.currentSort = '';
+                    this.searchTerm = '';
+                    this.filteredProducts = [...this.products];
+                }
+            }
+        }
     </script>
-
-
-
-
-
 </body>
 </html>
